@@ -1,15 +1,15 @@
-from src.masks import get_mask_account, get_mask_card_number
+from src.widget import mask_account_card, get_date
 
 
 def main() -> None:
-    card_number = "1234567890123456"
-    account_number = "12"
+    account_card = str("Visa Platinum 8990922113665229")
+    date_format = str("2024-03-11T02:26:18.671407")
 
-    masked_card = get_mask_card_number(card_number)
-    masked_account = get_mask_account(account_number)
+    masked_card = mask_account_card(account_card)
+    new_date = get_date(date_format)
 
-    print("Маска номера карты:", masked_card)
-    print("Маска номера счёта:", masked_account)
+    print(masked_card)
+    print(new_date)
 
 
 if __name__ == "__main__":
