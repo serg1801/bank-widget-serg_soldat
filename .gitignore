@@ -2,3 +2,5 @@
 .venv
 *.lock
 poetry.toml
+__pycache__/
+
