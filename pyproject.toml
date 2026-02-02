@@ -30,7 +30,7 @@ disallow_untyped_defs = true
 # Предупреждает, если функция возвращает значение типа Any
 warn_return_any = true
 # Файлы, которые не нужно форматировать
-exclude = 'venv'
+exclude = '.venv'
 
 [tool.black]
 # Максимальная длина строки
