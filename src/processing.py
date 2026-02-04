@@ -15,19 +15,19 @@ def filter_by_state(
 
 
 def sort_by_date(
-    list_dictionary: list[Dict[str, Any]], reverse_order: bool = True
+    transactions: list[Dict[str, Any]], reverse_order: bool = True
 ) -> List[Dict[str, Any]]:
     """
       Принимает список словарей и необязательный параметр, задающий порядок сортировки (по умолчанию — убывание),
     и возвращает новый список, отсортированный по дате (date).
     """
     # Преобразуем строки дат в объекты datetime для сортировки
-    for item in list_dictionary:
+    for item in transactions:
         item["date"] = datetime.strptime(item["date"], "%Y-%m-%dT%H:%M:%S.%f")
 
     # Сортируем список словарей по ключу 'date'
     sorted_list: List[Dict[str, Any]] = sorted(
-        list_dictionary, key=lambda x: x["date"], reverse=reverse_order
+        transactions, key=lambda x: x["date"], reverse=reverse_order
     )
 
     # Преобразуем обратно в строковый формат
