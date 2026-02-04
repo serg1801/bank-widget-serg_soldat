@@ -26,6 +26,8 @@ def get_date(date_format: str) -> str:
     """
 
     date_split_list = date_format.split("T")
-    formated_date = re.sub(r"(\d{4})-(\d{2})-(\d{2})", r"\3.\2.\1", (date_split_list[0]))
+    formated_date = re.sub(
+        r"(\d{4})-(\d{2})-(\d{2})", r"\3.\2.\1", (date_split_list[0])
+    )
 
     return formated_date
