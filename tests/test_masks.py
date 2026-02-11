@@ -45,6 +45,7 @@ def test_get_mask_card_number_invalid(invalid_card_number: str) -> None:
         ("78", "**78"),  # короткий номер
         ("123456789", "**6789"),  # более длинный номер
         ("0000", "**0000"),  # все нули
+        ("12ab34", "**ab34"),  # номер с символами
     ],
 )
 def test_get_mask_account(account_number: str, expected: str) -> None:
