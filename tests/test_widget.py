@@ -21,9 +21,9 @@ def account_cards() -> List[Tuple[str, str]]:
     ("Visa Gold 5999414228426353", "Visa Gold  5999 41** **** 6353"),
     ("Счет 64686473678894779589", "Счет  **9589")
 ])
+
 def test_mask_account_card(input_data: str, expected_output: str) -> None:
     assert mask_account_card(input_data) == expected_output
-
 
 def test_mask_account_card_invalid_data() -> None:
     with pytest.raises(ValueError):

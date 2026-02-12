@@ -21,8 +21,8 @@ def sort_by_date(operations: list[Dict[str, Any]], reverse_order: bool = True) -
     for item in operations:
         item["date"] = datetime.strptime(item["date"], "%Y-%m-%dT%H:%M:%S.%f")
 
-    # Сортируем список словарей по ключу 'date'
-    sorted_list: List[Dict[str, Any]] = sorted(operations, key=lambda x: x["date"], reverse=reverse_order)
+    # Сортируем список словарей по ключу 'date' и "id"(в случае одинаковых дат)
+    sorted_list: List[Dict[str, Any]] = sorted(operations, key=lambda x: (x["date"], x["id"]), reverse=reverse_order)
 
     # Преобразуем обратно в строковый формат
     for item in sorted_list:
