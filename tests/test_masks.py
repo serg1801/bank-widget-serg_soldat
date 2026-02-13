@@ -3,15 +3,6 @@ import pytest
 from src.masks import get_mask_account, get_mask_card_number
 
 
-# Фикстура для подготовки данных
-@pytest.fixture
-def card_numbers() -> list[tuple[str, str]]:
-    return [
-        ("1234567812345678", "1234 56** **** 5678"),  # корректный номер
-        ("0000000000000000", "0000 00** **** 0000"),  # все нули
-    ]
-
-
 # Параметризация теста
 @pytest.mark.parametrize(
     "card_number, expected",
@@ -62,5 +53,5 @@ def test_get_mask_account(account_number: str, expected: str) -> None:
 )
 def test_get_mask_account_invalid(invalid_account_number: int | str) -> None:
     result = get_mask_account(invalid_account_number)
-    # Проверь, что функция корректно возвращает маску даже для некорректных данных
+    #  функция корректно возвращает маску даже для некорректных данных
     assert result.startswith("**")
