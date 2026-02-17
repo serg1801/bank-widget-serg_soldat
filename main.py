@@ -3,7 +3,7 @@ from src.widget import get_date, mask_account_card
 
 
 def main() -> None:
-    account_card = "Visa Platinum 8990922113665229"
+    account_card = "Maestro 1596837868705199"
     date_format = "2024-03-11T02:26:18.671407"
 
     masked_card = mask_account_card(account_card)
