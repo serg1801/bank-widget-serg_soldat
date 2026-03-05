@@ -6,6 +6,7 @@ import pytest
 from src.decorators import log
 
 
+
 @log()
 def divide_function_console(x: float, y: float) -> float:
     return x / y
