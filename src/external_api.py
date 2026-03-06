@@ -1,20 +1,14 @@
+import os
 from typing import Dict
 
-import os
-
 import requests
-
-import random
-
 from dotenv import load_dotenv
-
-
-
 
 # Загружаем переменную окружения
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
+
 
 def converting_amount_rubles(transaction: Dict[str, Dict[str, Dict[str, str]]]) -> float:
     """
@@ -23,15 +17,16 @@ def converting_amount_rubles(transaction: Dict[str, Dict[str, Dict[str, str]]]) 
     и конвертации суммы операции в рубли
     """
 
-    code_transaction = transaction['operationAmount']['currency']['code']
+    code_transaction = transaction["operationAmount"]["currency"]["code"]
 
     if code_transaction == "RUB":
-        return float(transaction['operationAmount']['amount'])
+        result = str(transaction["operationAmount"]["amount"])
+        return float(result)
 
     elif code_transaction in ["USD", "EUR"]:
         to = "RUB"
-        from_= code_transaction
-        amount = transaction['operationAmount']['amount']
+        from_ = code_transaction
+        amount = transaction["operationAmount"]["amount"]
 
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from_}&amount={amount}"
 
@@ -41,24 +36,14 @@ def converting_amount_rubles(transaction: Dict[str, Dict[str, Dict[str, str]]]) 
             response = requests.get(url, headers=headers)
             response.raise_for_status()
             result = response.json()
-            return float(result['result'])
+            return float(result["result"])
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
-            return None
+            return 0.0
         except requests.exceptions.RequestException as err:
             print(f"Other error occurred: {err}")
-            return None
+            return 0.0
         except KeyError:
             print("Unexpected response format")
-            return None
-
-# # Прочитать все транзакции
-# transactions_list = read_json_file('data/operations.json')
-#
-# # Выбрать случайную транзакцию
-# random_transaction = random.choice(transactions_list)
-#
-# # Передать её в функцию
-# amount_in_rubles = round(converting_amount_rubles(random_transaction), 2)
-#
-# print(f"Amount in rubles: {amount_in_rubles}")
+            return 0.0
+    return 0.0
