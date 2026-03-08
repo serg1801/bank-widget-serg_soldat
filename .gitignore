@@ -5,3 +5,4 @@ poetry.toml
 __pycache__/
 mylog.txt
 test_log.txt
+.env
