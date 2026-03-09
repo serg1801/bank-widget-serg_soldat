@@ -3,6 +3,8 @@ from unittest.mock import mock_open, patch
 
 from src.utils import read_json_file
 
+import json
+
 mock_file = mock_open(
     read_data='[{"id": 441945886, "state": "EXECUTED", "date": "2019-08-26T10:50:58.294041",'
     ' "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},'
@@ -69,5 +71,12 @@ def test_read_json_file_non_list() -> None:
 @patch("builtins.open")
 def test_read_json_file_not_found(mock_open: Any) -> None:
     mock_open.side_effect = FileNotFoundError
+    result = read_json_file("non_existent_file.json")
+    assert result == []
+
+
+@patch("builtins.open")
+def test_read_json_file_not_code(mock_open: Any) -> None:
+    mock_open.side_effect = json.JSONDecodeError("Expecting value", "", 0)
     result = read_json_file("non_existent_file.json")
     assert result == []

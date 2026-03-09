@@ -6,3 +6,4 @@ __pycache__/
 mylog.txt
 test_log.txt
 .env
+logs/
