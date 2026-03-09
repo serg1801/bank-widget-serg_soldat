@@ -1,8 +1,7 @@
-import logging
-
 from src.logging_config import setup_logging
 
-masks_logger = setup_logging('masks')
+masks_logger = setup_logging("masks")
+
 
 def get_mask_card_number(card_number: int | str) -> str:
     """

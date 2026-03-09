@@ -1,9 +1,8 @@
+import json
 from typing import Any
 from unittest.mock import mock_open, patch
 
 from src.utils import read_json_file
-
-import json
 
 mock_file = mock_open(
     read_data='[{"id": 441945886, "state": "EXECUTED", "date": "2019-08-26T10:50:58.294041",'

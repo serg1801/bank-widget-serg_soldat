@@ -1,10 +1,9 @@
 import json
 
-import logging
-
 from src.logging_config import setup_logging
 
-utils_logger = setup_logging('utils')
+utils_logger = setup_logging("utils")
+
 
 def read_json_file(file_path: str) -> list:
     """
@@ -24,6 +23,7 @@ def read_json_file(file_path: str) -> list:
     except json.JSONDecodeError:
         utils_logger.error(f"Ошибка декодирования JSON в файле {file_path}.")
     return []
+
 
 # transactions_ = read_json_file('data/operations.json')
 # print(transactions_)
