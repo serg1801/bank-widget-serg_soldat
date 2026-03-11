@@ -1,3 +1,4 @@
+import json
 from typing import Any
 from unittest.mock import mock_open, patch
 
@@ -69,5 +70,12 @@ def test_read_json_file_non_list() -> None:
 @patch("builtins.open")
 def test_read_json_file_not_found(mock_open: Any) -> None:
     mock_open.side_effect = FileNotFoundError
+    result = read_json_file("non_existent_file.json")
+    assert result == []
+
+
+@patch("builtins.open")
+def test_read_json_file_not_code(mock_open: Any) -> None:
+    mock_open.side_effect = json.JSONDecodeError("Expecting value", "", 0)
     result = read_json_file("non_existent_file.json")
     assert result == []
