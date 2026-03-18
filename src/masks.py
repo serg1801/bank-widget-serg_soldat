@@ -1,3 +1,5 @@
+import re
+
 from src.logging_config import setup_logging
 
 masks_logger = setup_logging("masks")
@@ -30,9 +32,10 @@ def get_mask_account(account_number: int | str) -> str:
     if not isinstance(account_number, str):
         account_number = str(account_number)
 
-    if len(account_number) < 4:
-        masks_logger.info(f"Счёт отформатирован: {'**' + account_number}")
-        return "**" + account_number
-    else:
-        masks_logger.info(f"Счёт отформатирован: {'**' + account_number[-4:]}")
-        return "**" + account_number[-4:]
+    # Извлекаем только цифры из строки
+    numbers = re.findall(r"\d+", account_number)
+    if numbers:
+        # Берем последние 4 цифры
+        last_four = numbers[-1][-4:]
+        return f"**{last_four}"
+    return "**неизвестно"

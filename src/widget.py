@@ -22,13 +22,13 @@ def mask_account_card(account_card: str) -> str:
 def get_date(date_format: str) -> str:
     """
     Принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
-    и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").
+    или "2023-09-05T11:30:32Z" и возвращает строку с датой в формате "ДД.ММ.ГГГГ".
     """
-    # Проверим, соответствует ли строка ожидаемому формату с регулярным выражением
-    if not re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}", date_format):
+    if re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{6})?Z?", date_format):
+        # Разделяем дату и время
+        date_split_list = date_format.split("T")
+        # Форматируем дату
+        formated_date = re.sub(r"(\d{4})-(\d{2})-(\d{2})", r"\3.\2.\1", date_split_list[0])
+        return formated_date
+    else:
         raise ValueError("Некорректный формат даты")
-
-    date_split_list = date_format.split("T")
-    formated_date = re.sub(r"(\d{4})-(\d{2})-(\d{2})", r"\3.\2.\1", (date_split_list[0]))
-
-    return formated_date

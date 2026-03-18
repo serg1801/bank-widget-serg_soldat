@@ -54,3 +54,16 @@ def transactions_() -> List[Transaction]:
             "to": "Счет 14211924144426031657",
         },
     ]
+
+
+@pytest.fixture
+def data_():
+    return [
+        {"description": "Food"},
+        {"description": "Transport"},
+        {"description": "Food"},
+        {"description": "Entertainment"},
+        {"description": "Payment to John"},
+        {"description": "Transfer to bank"},
+        {"description": "Payment to Jane"},
+    ]
