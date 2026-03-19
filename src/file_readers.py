@@ -1,7 +1,9 @@
+from typing import Any, Hashable
+
 import pandas as pd
 
 
-def read_csv_file(path_csv: str) -> list[dict]:
+def read_csv_file(path_csv: str) -> list[dict[Hashable, Any]]:
     """
      Функция для считывания финансовых операций из CSV. Принимает путь к файлу CSV, в качестве аргумента,
     и выдает список словарей с транзакциями.
@@ -14,7 +16,7 @@ def read_csv_file(path_csv: str) -> list[dict]:
     return transactions_csv_list
 
 
-def read_excel_file(path_excel: str) -> list[dict]:
+def read_excel_file(path_excel: str) -> list[dict[Hashable, Any]]:
     """
      Функция для считывания финансовых операций из Excel. Принимает путь к файлу Excel, в качестве аргумента,
     и выдает список словарей с транзакциями.
@@ -27,4 +29,4 @@ def read_excel_file(path_excel: str) -> list[dict]:
     return transactions_exl_list
 
 
-# print(read_excel_file("data/transactions_excel.xlsx"))
+# print(read_csv_file('data/transactions.csv'))

@@ -14,10 +14,10 @@ from src.generators import card_number_generator, filter_by_currency, transactio
     ],
 )
 def test_filter_by_currency(transactions_: List[Dict[str, Any]], currency_code: str, expected_count: int) -> None:
-    result = list(filter_by_currency(transactions_, currency_code))
+    result = list(filter_by_currency(transactions_, currency_code, ["currency"]))
     assert len(result) == expected_count
 
-    result = list(filter_by_currency([], currency_code))  # Пустой список транзакций
+    result = list(filter_by_currency([], currency_code, ["currency"]))  # Пустой список транзакций
     assert len(result) == 0
 
 

@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Dict, List, Union
 
 import pytest
@@ -9,8 +10,8 @@ from src.processing import filter_by_state, sort_by_date
 @pytest.fixture
 def transactions() -> List[Dict[str, Union[int, str]]]:
     return [
-        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T11:30:32Z"},
+        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T12:30:32Z"},
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
@@ -23,8 +24,8 @@ def transactions() -> List[Dict[str, Union[int, str]]]:
         (
             "EXECUTED",
             [
-                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T11:30:32Z"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T12:30:32Z"},
             ],
         ),
         (
@@ -40,6 +41,22 @@ def transactions() -> List[Dict[str, Union[int, str]]]:
 def test_filter_by_state(transactions: List[Dict[str, Any]], state: str, expected: List[Dict[str, Any]]) -> None:
     result = filter_by_state(transactions, state)
     assert result == expected
+
+
+# Тест для проверки обработки дат с "Z"
+def test_sort_by_date_with_z(transactions):
+    sorted_transactions = sort_by_date(transactions, reverse_order=True)
+    # Проверяем, что дата преобразована правильно
+    expected_date_format = "%Y-%m-%dT%H:%M:%S.%f"
+    for transaction in sorted_transactions:
+        try:
+            # Проверяем, что дата может быть преобразована обратно в datetime
+            datetime.strptime(transaction["date"], expected_date_format)
+        except ValueError:
+            assert False, f"Date format incorrect for transaction: {transaction}"
+
+    # Проверка правильности порядка сортировки
+    assert sorted_transactions[0]["id"] == 41428829  # Проверяем, что самый последний по дате элемент имеет id 41428829
 
 
 # Фикстура для предоставления тестовых данных
